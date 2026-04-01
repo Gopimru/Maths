@@ -2,21 +2,39 @@ pipeline {
     agent any
 
     stages {
-        stage('Groovy Basics') {
+        // 1️⃣ Checkout
+        stage('Checkout') {
+            steps {
+                git branch: 'master', url: 'https://github.com/Gopimru/Mru.git'
+            }
+        }
+
+        // 2️⃣ Build
+        stage('Build') {
             steps {
                 script {
-                    // Simple message
-                    println "Hello from Jenkins Groovy!"
+                    println "Building the project..."
+                    sh 'echo "Simulating build step"'
+                }
+            }
+        }
 
-                    // Loop through a list
-                    def fruits = ['Apple', 'Banana', 'Cherry']
-                    for (fruit in fruits) {
-                        println "I like ${fruit}"
-                    }
+        // 3️⃣ Test
+        stage('Test') {
+            steps {
+                script {
+                    println "Running tests..."
+                    sh 'echo "Simulating test step"'
+                }
+            }
+        }
 
-                    // Run a shell command
-                    def dateOutput = sh(script: 'date', returnStdout: true).trim()
-                    println "Current date and time: ${dateOutput}"
+        // 4️⃣ Deploy
+        stage('Deploy') {
+            steps {
+                script {
+                    println "Deploying project..."
+                    sh 'echo "Simulating deploy step"'
                 }
             }
         }
@@ -24,7 +42,10 @@ pipeline {
 
     post {
         success {
-            echo "Groovy script executed successfully!"
+            echo "Pipeline completed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check logs!"
         }
     }
 }
