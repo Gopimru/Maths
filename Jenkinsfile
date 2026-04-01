@@ -13,8 +13,13 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    println "Building the project..."
-                    sh 'echo "Simulating build step"'
+                    println "Setting up Python environment..."
+                    sh '''
+                        python3 -m venv venv
+                        source venv/bin/activate
+                        pip install --upgrade pip
+                        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+                    '''
                 }
             }
         }
@@ -24,7 +29,10 @@ pipeline {
             steps {
                 script {
                     println "Running tests..."
-                    sh 'echo "Simulating test step"'
+                    sh '''
+                        source venv/bin/activate
+                        if [ -d tests ]; then pytest tests/ || true; fi
+                    '''
                 }
             }
         }
@@ -34,7 +42,7 @@ pipeline {
             steps {
                 script {
                     println "Deploying project..."
-                    sh 'echo "Simulating deploy step"'
+                    sh 'echo "Deploy step placeholder (replace with real deploy)"'
                 }
             }
         }
@@ -42,10 +50,10 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline completed successfully!"
+            echo "Python pipeline completed successfully!"
         }
         failure {
-            echo "Pipeline failed. Check logs!"
+            echo "Pipeline failed. Check the logs!"
         }
     }
 }
