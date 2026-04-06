@@ -1,4 +1,5 @@
 Learning Linux
+Preparing Git commands also
 happy to learn Linux
 Love to learn linux
 linux is OS
