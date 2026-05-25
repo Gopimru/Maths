@@ -1,8 +1,1 @@
-Hi Virat
-<<<<<<< HEAD
-Hi Sahcin
-Hi Rohit
-=======
-Hi Kohli
-Hi faf
->>>>>>> 24d83550513bcbd7179d1763c07196a0d122479e
+Hi Gopi
